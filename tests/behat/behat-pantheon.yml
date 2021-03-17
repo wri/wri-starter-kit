@@ -24,6 +24,7 @@ default:
           chrome:
             api_url: "http://localhost:9222"
             validate_certificate: false
+            socket_timeout: 60
 
     Drupal\DrupalExtension:
       blackbox: ~
