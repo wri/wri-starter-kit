@@ -113,28 +113,6 @@
         "post-create-project-cmd": [
             "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
         ],
-        "refresh-pantheon-backup": [
-            "terminus backup:create wriflagship.live --element=db"
-        ],
-        "db-install": [
-            "rm -f vendor/database.sql.gz",
-            "terminus backup:get wriflagship.live --element=db --to=vendor/database.sql.gz",
-            "drush sql:drop -y",
-            "zcat < vendor/database.sql.gz | drush sqlc",
-            "drush updb -y",
-            "drush cim -y",
-            "drush en config_suite field_tools devel stage_file_proxy config_devel",
-            "drush cex -y"
-        ],
-        "pull-pantheon-config": [
-            "terminus backup:create wriflagship.live --element=db",
-            "rm -f vendor/database.sql.gz",
-            "terminus backup:get wriflagship.live --element=db --to=vendor/database.sql.gz",
-            "drush sql:drop -y",
-            "zcat < vendor/database.sql.gz | drush sqlc",
-            "drush updb -y",
-            "drush cex -y"
-        ],
         "compile-code": [
             ": $(npm install --prefix web/profiles/contrib/wri_sites/themes/custom/ts_wrin)",
             ": $(npm run build --prefix web/profiles/contrib/wri_sites/themes/custom/ts_wrin)"
