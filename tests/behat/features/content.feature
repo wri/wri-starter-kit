@@ -57,7 +57,7 @@ Feature: Content
     | title          | author   | promote |
     | Article by Joe | Joe User | 1       |
     When I am logged in as a user with the "administrator" role
-    And I am on the homepage
+    And I go to "node"
     Then I should see the link "Article by Joe"
     When I follow "Article by Joe"
     Then I should see the text "Article by Joe"

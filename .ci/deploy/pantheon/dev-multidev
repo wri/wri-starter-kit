@@ -34,6 +34,10 @@ fi
 # Clear Drupal cache
 terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- cr
 
+# Clear solr & reindex for VR tests
+terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- sapi-sc pantheon
+terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- sapi-i
+
 # Clear the environment cache
 terminus -n env:clear-cache $TERMINUS_SITE.$TERMINUS_ENV
 
