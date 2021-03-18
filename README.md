@@ -16,7 +16,7 @@ Based off of https://github.com/pantheon-systems/example-drops-8-composer with s
 3. Enable solr on your new site:
 
    ```
-   Enable solr : terminus [new-project-name] solr:enable
+   terminus solr:enable [new-project-name] 
    ```
 
 4. You can now visit your github repo at https://github.com/thinkshout/[new-project-name]. That repository will have information on the Pantheon multidev and Circleci configuration in its README.md
