@@ -50,7 +50,8 @@ If the automated tooling hits a memory exhausted error during the profile instal
    1. This will build out the project on your local (Minus profile install)
 2. Run `cd [new-project-name]`
 3. Skip this step if not using docksal
-   1. Run `fin init`
+   1. Copy the `.docksal/` directory from https://github.com/wri/wriflagship and paste it in the project.
+   2. Run `fin init`
 4. Now run (add `fin if using docksal`): `drush site-install wri_sites --account-mail='<site-email>' --account-name=<admin-account-username> --account-pass="<admin-password" --site-mail='<site-email>' --site-name=<new-project-name> --yes`
 5. Now export out the database
 
