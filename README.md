@@ -6,13 +6,18 @@ Based off of https://github.com/pantheon-systems/example-drops-8-composer with s
 ## To build a new site
 1. Make sure you have all the prerequisites to use the Pantheon build tools, as discussed at https://pantheon.io/docs/guides/build-tools/create-project/#prerequisites
 
+   1a. Make sure for Terminus you have the PHAR version installed or errors will occur. (https://pantheon.io/docs/terminus/install#terminus-installer-phar)
+
+
 2. Run this command:
    ```
    COMPOSER_MEMORY_LIMIT=-1 terminus build:project:create --team='World Resources Institute' --org='wri' --visibility='private' --stability='dev' wri/wri-starter-kit [new-project-name]
    ```
    
    More info about the build tools and what each section means is available at https://github.com/pantheon-systems/terminus-build-tools-plugin/blob/master/README.md#buildprojectcreate
-   
+
+   If you run into a memory exhausted error jump down to the "What to do if the build:project command fails - Manual create" section.
+
 3. Enable solr on your new site:
 
    ```
@@ -34,6 +39,37 @@ If that fails as well, this repo needs to be updated.
 If the build:project command fails for some reason, part of the skeleton for the new site might already exist. If it does, delete both the Pantheon environment and the github repo created, if either exist.
 
 There is a lot of information about the build tools, which might help with debugging, in [The Pantheon Build tools README](https://github.com/pantheon-systems/terminus-build-tools-plugin). Pantheon also provides [thorough documentation](https://pantheon.io/docs/guides/build-tools) on the full scope of their build tools.
+
+#### Manual Create:
+If the automated tooling hits a memory exhausted error during the profile install we will need to install / wrap up wiring up the build tools by hand.
+
+(These steps assume you already ran `COMPOSER_MEMORY_LIMIT=-1 terminus build:project:create --team='World Resources Institute' --org='wri' --visibility='private' --stability='dev' wri/wri-starter-kit [new-project-name]` and haven't run / changed anything yet.)
+
+##### Building the codebase
+1. On your local run `COMPOSER_MEMORY_LIMIT=-1 composer create-project wri/wri-starter-kit [new-project-name]`
+   1. This will build out the project on your local (Minus profile install)
+2. Run `cd [new-project-name]`
+3. Skip this step if not using docksal
+   1. Run `fin init`
+4. Now run (add `fin if using docksal`): `drush site-install wri_sites --account-mail='<site-email>' --account-name=<admin-account-username> --account-pass="<admin-password" --site-mail='<site-email>' --site-name=<new-project-name> --yes`
+5. Now export out the database
+
+###### Setting up the database
+1. Log into Pantheon and navigate to your new site
+2. Under the `Dev` tab go to `Database / File` --> `Import`
+3. Import your database you exported in the last section
+
+##### CI Tooling (CircleCi)
+1. Go to: https://app.circleci.com/projects/project-dashboard/github/wri/
+2. Look for your new site and click on it
+3. Verify there are no errors, If there are such as "branch not found" fix them.
+
+##### Final Steps:
+1. In github navigate to your new Site's repo
+2. Clone it next to your new project directory. (You will need to rename one of the directories to avoid conflict, or in a different place)
+3. Once cloned copy the `.git` directory from the freshly cloned repo and paste it in your project directory we created earlier. This will be your new working git directory for the project. (this is just quick way to get all the generated files into a directory that git knows about)
+4. If everything look correct make a commit and push up to the repo.
+5. In github, circle ci, and pantheon verify all of our pipelines are working. A build should be triggered from this push.
 
 ### How to delete a project made with this starter kit.
 
