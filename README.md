@@ -26,6 +26,18 @@ Based off of https://github.com/pantheon-systems/example-drops-8-composer with s
 
 4. You can now visit your github repo at https://github.com/wri/[new-project-name]. That repository will have information on the Pantheon multidev and Circleci configuration in its README.md
 
+## Post-install recommended configuration changes:
+
+After initial install, we recommend doing the following:
+
+1. Enable solr: `terminus solr:enable [your-site-name]` -- or you can do this using the Pantheon Dashboard.
+2. Pull your site from dev -> test -> live so you can start making configuration changes without fear of losing them with new deploys.
+3. On live, create a homepage `/node/add/homepage`
+4. On live, create the Site title, etc at `/admin/config/system/site-information` including linking to the homepage you just created.
+5. On live, add Topics, Types and Region terms to the taxonomy (or pull via a migration).
+6. On live, enable the publishing workflow for all content types at `/admin/config/workflow/workflows/manage/content_publishing`
+
+
 ### What to do if the build:project command fails:
 
 If the `build:project:create` command fails because of a composer conflict, you can try to debug this by running the simpler build command locally:
