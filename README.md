@@ -9,11 +9,11 @@ Based off of https://github.com/pantheon-systems/example-drops-8-composer with s
    1a. Make sure for Terminus you have the PHAR version installed or errors will occur. (https://pantheon.io/docs/terminus/install#terminus-installer-phar)
 
 
-2. Run this command:
+2. Make sure you're running composer version 2: `composer self-update 2`, then run this command:
    ```
    COMPOSER_MEMORY_LIMIT=-1 terminus build:project:create --team='World Resources Institute' --org='wri' --visibility='private' --stability='dev' wri/wri-starter-kit [new-project-name]
    ```
-   
+
    More info about the build tools and what each section means is available at https://github.com/pantheon-systems/terminus-build-tools-plugin/blob/master/README.md#buildprojectcreate
 
    If you run into a memory exhausted error jump down to the "What to do if the build:project command fails - Manual create" section.
@@ -21,7 +21,7 @@ Based off of https://github.com/pantheon-systems/example-drops-8-composer with s
 3. Enable solr on your new site:
 
    ```
-   terminus solr:enable [new-project-name] 
+   terminus solr:enable [new-project-name]
    ```
 
 4. You can now visit your github repo at https://github.com/wri/[new-project-name]. That repository will have information on the Pantheon multidev and Circleci configuration in its README.md
