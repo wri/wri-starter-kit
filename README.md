@@ -9,7 +9,7 @@ Based off of https://github.com/pantheon-systems/example-drops-8-composer with s
    1a. Make sure for Terminus you have the PHAR version installed or errors will occur. (https://pantheon.io/docs/terminus/install#terminus-installer-phar)
 
 
-2. Make sure you're running composer version 2: `composer self-update 2`, then run this command:
+2. Make sure you're running composer version 2: `composer self-update --2`, then run this command:
    ```
    COMPOSER_MEMORY_LIMIT=-1 terminus build:project:create --team='World Resources Institute' --org='wri' --visibility='private' --stability='dev' wri/wri-starter-kit [new-project-name]
    ```
