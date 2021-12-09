@@ -11,7 +11,7 @@ Based off of https://github.com/pantheon-systems/example-drops-8-composer with s
 
 2. Make sure you're running composer version 2: `composer self-update --2`, then run this command:
    ```
-   COMPOSER_MEMORY_LIMIT=-1 terminus build:project:create --team='World Resources Institute' --org='wri' --visibility='private' --stability='dev' wri/wri-starter-kit [new-project-name]
+   COMPOSER_MEMORY_LIMIT=-1 terminus build:project:create --team='8d0668c5-17bd-17c8-6fd2-1e81cddff66f' --org='wri' --visibility='private' --stability='dev' wri/wri-starter-kit [new-project-name]
    ```
 
    More info about the build tools and what each section means is available at https://github.com/pantheon-systems/terminus-build-tools-plugin/blob/master/README.md#buildprojectcreate
