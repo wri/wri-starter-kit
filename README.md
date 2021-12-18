@@ -11,7 +11,7 @@ Based off of https://github.com/pantheon-systems/example-drops-8-composer with s
 
 2. Make sure you're running composer version 2: `composer self-update --2`, then run this command:
    ```
-   COMPOSER_MEMORY_LIMIT=-1 terminus build:project:create --team='8d0668c5-17bd-17c8-6fd2-1e81cddff66f' --org='wri' --visibility='private' --stability='dev' wri/wri-starter-kit [new-project-name]
+   COMPOSER_MEMORY_LIMIT=-1 terminus build:project:create --team='8d0668c5-17bd-17c8-6fd2-1e81cddff66f' --org='wri' --visibility='private' --stability='dev'  wri/wri-starter-kit [new-project-name]
    ```
 
    More info about the build tools and what each section means is available at https://github.com/pantheon-systems/terminus-build-tools-plugin/blob/master/README.md#buildprojectcreate
@@ -36,6 +36,7 @@ After initial install, we recommend doing the following:
 4. On live, create the Site title, etc at `/admin/config/system/site-information` including linking to the homepage you just created.
 5. On live, add Topics, Types and Region terms to the taxonomy (or pull via a migration).
 6. On live, enable the publishing workflow for all content types at `/admin/config/workflow/workflows/manage/content_publishing`
+7. On live, set up any Languages you'll want to use on the site. The documentation: https://www.drupal.org/docs/multilingual-guide
 
 
 ### What to do if the build:project command fails:
