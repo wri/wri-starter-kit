@@ -1,7 +1,7 @@
 # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
 defaults: &defaults
   docker:
-    - image: quay.io/pantheon-public/build-tools-ci:6.x
+    - image: quay.io/pantheon-public/build-tools-ci:7.x-php7.4
   working_directory: ~/example_drops_8_composer
   environment:
     #=========================================================================
@@ -52,6 +52,7 @@ defaults: &defaults
     ADMIN_USERNAME: admin
     # BUILD_TOOLS_VERSION: ^2.0.0-alpha4
     TERM: dumb
+    DEFAULT_BRANCH: main
 
 version: 2
 jobs:
@@ -135,7 +136,6 @@ jobs:
           paths:
             - web
             - vendor
-            - drush
 
   deploy_to_pantheon:
     <<: *defaults
@@ -155,56 +155,12 @@ jobs:
       # Rsync the build artifact pieces web directory
       - run:
           name: sync build artifact
-          command: rsync -rz /tmp/web /tmp/vendor /tmp/drush .
+          command: rsync -lrz /tmp/web /tmp/vendor .
 
       # Deploy to Pantheon
       - run:
           name: deploy to Pantheon
           command: ./.ci/deploy/pantheon/dev-multidev
-
-  behat_test:
-    <<: *defaults
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - composer-cache-{{ checksum "composer.lock" }}
-            - composer-cache-
-
-      - run:
-          # Set TERMINUS_ENV and related environment variables.
-          # https://github.com/pantheon-systems/docker-build-tools-ci/blob/6.x/scripts/set-environment
-          name: setup-environment-vars
-          command: /build-tools-ci/scripts/set-environment
-
-      - run:
-          # Uncomment line 26 in .ci/test/behat/initialize to create a backup
-          # prior to running Behat tests. This is useful to reset the multidev
-          # environment to the previous state after Behat tests have run.
-          name: prepare for Behat testing
-          command: ./.ci/test/behat/initialize
-
-      - run:
-          name: run acceptance tests with Behat
-          command: ./.ci/test/behat/run
-
-      - run:
-          # Uncomment line 13 in .ci/test/behat/cleanup to restore a backup
-          # after running Behat tests. This is useful to reset the multidev
-          # environment to the previous state after Behat tests have run.
-          name: clean up after Behat
-          command: ./.ci/test/behat/cleanup
-          when: always
-
-      - save_cache:
-          key: composer-cache-{{ checksum "composer.lock" }}
-          paths:
-            - $HOME/.composer/cache
-
-      - store_artifacts:
-          path: /tmp/artifacts
-          destination: artifacts
 
   visual_regression_test:
     <<: *defaults
@@ -220,7 +176,7 @@ jobs:
       - run: echo "export CI_BUILD_URL='${CIRCLE_BUILD_URL}'" >> $BASH_ENV
       - run: echo "export CI_NODE_INDEX='${CIRCLE_NODE_INDEX}'" >> $BASH_ENV
       - run: echo "export CI_REPOSITORY_URL='${CIRCLE_REPOSITORY_URL}'" >> $BASH_ENV
-      - run: echo "export ARTIFACTS_DIR_URL='${CIRCLE_BUILD_URL}/artifacts/${CIRCLE_NODE_INDEX}/artifacts'" >> $BASH_ENV
+      - run: echo "export ARTIFACTS_DIR_URL='https://output.circle-artifacts.com/output/job/${CIRCLE_WORKFLOW_JOB_ID}/artifacts/${CIRCLE_NODE_INDEX}/artifacts'" >> $BASH_ENV
       - run: source $BASH_ENV
 
       - run:
@@ -240,7 +196,7 @@ jobs:
           # Set TERMINUS_ENV and related environment variables.
           # https://github.com/pantheon-systems/docker-build-tools-ci/blob/6.x/scripts/set-environment
           name: setup-environment-vars
-          command: /build-tools-ci/scripts/set-environment
+          command: ./.ci/build/multidev-save
 
       - run:
           name: Authenticate with Terminus
@@ -268,11 +224,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - master
-      - behat_test:
-          requires:
-            - deploy_to_pantheon
-            - visual_regression_test
+                - main
 
   scheduled_update_check:
     triggers:
@@ -281,6 +233,6 @@ workflows:
            filters:
              branches:
               only:
-                - master
+                - main
     jobs:
       - composer_lock_updater

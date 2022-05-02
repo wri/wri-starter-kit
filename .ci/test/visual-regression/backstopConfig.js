@@ -17,14 +17,16 @@ for (let [key, value] of Object.entries(pathsToTest)) {
         url: multidevURL + value,
         referenceUrl: devURL + value,
         hideSelectors: [],
-        removeSelectors: [],
+        removeSelectors: [
+          "iframe"
+        ],
         selectorExpansion: true,
         selectors: [
             'document',
         ],
         readyEvent: null,
-        delay: 1500,
-        misMatchThreshold: 0.1
+        delay: 5000,
+        misMatchThreshold: 0.5,
     })
 }
 
@@ -32,12 +34,12 @@ module.exports = {
     id: 'test',
     viewports: [{
             name: 'phone',
-            width: 320,
+            width: 400,
             height: 480
         },
         {
             name: 'tablet',
-            width: 1024,
+            width: 800,
             height: 768
         },
         {
@@ -54,13 +56,12 @@ module.exports = {
         ci_report: 'backstop_data/ci_report'
     },
     report: ['browser', 'CI'],
-    debug: false,
     engine: 'puppeteer',
     engineOptions: {
         args: ['--no-sandbox']
     },
     asyncCaptureLimit: 5,
-    asyncCompareLimit: 50,
+    asyncCompareLimit: 5,
     debug: false,
     debugWindow: false
 };

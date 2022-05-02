@@ -34,12 +34,6 @@ then
     exit 0
 fi
 
-# Always run visual tests if "[vr]" is in the last commit message
-if [[ ${LAST_GIT_COMMIT_MESSAGE} == *"[vr]"* ]]
-then
-    echo -e "\nRunning visual regression tests because the latest commit message demands it"
-fi
-
 # Ping the multidev environment to wake it from sleep
 echo -e "\nPinging the ${TERMINUS_ENV} multidev environment to wake it from sleep..."
 curl -I "$MULTIDEV_SITE_URL" >/dev/null
@@ -86,7 +80,7 @@ fi
 
 DIFF_REPORT_URL="$ARTIFACTS_DIR_URL/backstop_data/html_report/index.html"
 
-REPORT_LINK="[![Visual report]($DIFF_IMAGE_URL)]($DIFF_REPORT_URL)"
+REPORT_LINK="[Visual report]($DIFF_REPORT_URL)"
 
 if [[ ${VISUAL_REGRESSION_RESULTS} == *"Mismatch errors found"* ]]
 then
