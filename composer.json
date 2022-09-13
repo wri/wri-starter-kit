@@ -5,6 +5,19 @@
     "license": "MIT",
     "repositories": [
         {
+            "type": "package",
+            "package": {
+                "name": "drupal/views_arg_order_sort",
+                "type": "drupal-module",
+                "version": "dev-8.x-1.x",
+                "source": {
+                    "type": "git",
+                    "url": "https://git.drupalcode.org/project/views_arg_order_sort.git",
+                    "reference": "5d13cfca5749294d127ebc06348827f775342b37"
+                }
+            }
+        },
+        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         },
