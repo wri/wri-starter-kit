@@ -5,6 +5,19 @@
     "license": "MIT",
     "repositories": [
         {
+            "type": "package",
+            "package": {
+                "name": "drupal/views_arg_order_sort",
+                "type": "drupal-module",
+                "version": "dev-8.x-1.x",
+                "source": {
+                    "type": "git",
+                    "url": "https://git.drupalcode.org/project/views_arg_order_sort.git",
+                    "reference": "5d13cfca5749294d127ebc06348827f775342b37"
+                }
+            }
+        },
+        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         },
@@ -53,7 +66,6 @@
         "drupal/migrate_tools": "^6.0",
         "drupal/migrate_upgrade": "^4.0",
         "drupal/term_merge": "^2.0@beta",
-        "drupal/views_arg_order_sort": "dev-1.x#5d13cfca5749294d127ebc06348827f775342b37",
         "drush/drush": "^10.6",
         "pantheon-systems/drupal-integrations": "^9.0",
         "pantheon-systems/quicksilver-pushback": "^2",
