@@ -147,6 +147,7 @@
             "install-cms": [
                 "drush site-install wri_sites --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes"
             ],
+            "enable-modules": "drush en wri_package -y && drush en wri_package2 -y",
             "export-configuration": "drush config-export --yes"
         },
         "drupal-scaffold": {
