@@ -233,6 +233,6 @@ workflows:
            filters:
              branches:
               only:
-                - main
+                - develop
     jobs:
       - composer_lock_updater
