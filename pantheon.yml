@@ -5,6 +5,8 @@ database:
 web_docroot: true
 php_version: 7.4
 enforce_https: transitional
+search:
+  version: 8
 workflows:
   sync_code:
     after:
