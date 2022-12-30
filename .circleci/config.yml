@@ -229,7 +229,7 @@ workflows:
   scheduled_update_check:
     triggers:
        - schedule:
-           cron: "0 0 * * *"
+           cron: "0 0 * * 4"
            filters:
              branches:
               only:
