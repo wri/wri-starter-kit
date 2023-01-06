@@ -214,6 +214,8 @@ workflows:
       - static_tests
       - build_php
       - deploy_to_pantheon:
+          context:
+            - wri-global
           requires:
             - static_tests
             - build_php
@@ -235,4 +237,6 @@ workflows:
               only:
                 - develop
     jobs:
-      - composer_lock_updater
+      - composer_lock_updater:
+          context:
+            - wri-global
