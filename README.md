@@ -1,5 +1,6 @@
 # wri-starter-kit
 Starter code for wri sites
+Style Guide https://www.figma.com/proto/mIAtFYxBsWI4CU4gIHRymm/WRI-styleguide 
 
 Based off of https://github.com/pantheon-systems/example-drops-8-composer with some updates to make this install with the wri/wri_sites https://github.com/wri/wri_sites profile.
 
