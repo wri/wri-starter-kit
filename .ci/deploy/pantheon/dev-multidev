@@ -17,7 +17,7 @@ composer run prepare-for-pantheon
 if [[ $CI_BRANCH != $DEFAULT_BRANCH ]]
 then
   # Create a new multidev environment (or push to an existing one)
-  terminus -n build:env:create "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --yes
+  terminus -n build:env:create "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --pr-id=$PR_NUMBER --yes
 else
   # Push to the dev environment
   terminus -n build:env:push "$TERMINUS_SITE.dev" --yes
@@ -35,8 +35,12 @@ fi
 terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- cr
 
 # Clear solr & reindex for VR tests
-terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- sapi-sc pantheon
-terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- sapi-i
+INDEXED_VALUE=$(terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- sapi-s --field=Indexed)
+
+if [[ "$INDEXED_VALUE" == "0" ]] ; then
+  terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- sapi-sc pantheon
+  terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- sapi-i
+fi
 
 # Clear the environment cache
 terminus -n env:clear-cache $TERMINUS_SITE.$TERMINUS_ENV
