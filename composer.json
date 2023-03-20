@@ -58,7 +58,7 @@
         }
     ],
     "require": {
-        "php": "^7.4",
+        "php": "^8.1",
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.0",
         "drupal/config_direct_save": "^2.1",
@@ -83,7 +83,8 @@
         "jcalderonzumba/gastonjs": "^1.0.2",
         "mikey179/vfsstream": "^1.2",
         "squizlabs/php_codesniffer": "^3.4.0",
-        "symfony/css-selector": "^2.8"
+        "symfony/css-selector": "^2.8",
+        "thinkshout/robo-drupal": "4.x-dev"
     },
     "conflict": {
             "drupal/drupal": "*"
@@ -151,7 +152,8 @@
         },
         "drupal-scaffold": {
             "allowed-packages": [
-                "pantheon-systems/drupal-integrations"
+                "pantheon-systems/drupal-integrations",
+                "thinkshout/robo-drupal"
             ],
             "locations": {
                 "web-root": "./web"
@@ -159,15 +161,15 @@
             "file-mapping": {
                 "[project-root]/.editorconfig": false
             }
+        },
+        "patchLevel": {
+            "drupal\/core": "-p2"
         }
     },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
-        "platform": {
-            "php": "7.4"
-        },
         "allow-plugins": {
             "composer/installers": true,
             "cweagans/composer-patches": true,

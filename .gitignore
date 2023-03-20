@@ -116,3 +116,6 @@ Thumbs.db
 # SASS #
 ##########
 .sass-cache
+
+# Node packages #
+web/profiles/*/themes/custom/*/node_modules/*
