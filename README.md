@@ -1,14 +1,20 @@
 # wri-starter-kit
 Starter code for wri sites
-Style Guide https://www.figma.com/proto/mIAtFYxBsWI4CU4gIHRymm/WRI-styleguide 
 
 Based off of https://github.com/pantheon-systems/example-drops-8-composer with some updates to make this install with the wri/wri_sites https://github.com/wri/wri_sites profile.
 
 ## To build a new site
 1. Make sure you have all the prerequisites to use the Pantheon build tools, as discussed at https://pantheon.io/docs/guides/build-tools/create-project/#prerequisites
 
-   1a. Make sure for Terminus you have the PHAR version installed or errors will occur. (https://pantheon.io/docs/terminus/install#terminus-installer-phar)
+Note that includes each of the following:
+- Composer version 2+
+- terminus version 3+
+- An SSH key on Pantheon's Dashboard (so you can run terminus commands without having to provide a password)
+- The terminus build tools plugin
 
+You should also have:
+- The ability to create a new repository on Github under the WRI org: https://github.com/organizations/wri/repositories/new
+- The ability to create a new Site on Pantheon under the WRI org (on your Pantheon dashboard, use the top-left icon to go to the WRI org and then look for the "Create New Site" button)
 
 2. Make sure you're running composer version 2: `composer self-update --2`, then run this command:
    ```
