@@ -47,18 +47,10 @@ After initial install, we recommend doing the following:
 
 
 ### What to do if the build:project command fails:
-
-If the `build:project:create` command fails because of a composer conflict, you can try to debug this by running the simpler build command locally:
-
-```yaml
-composer create-project wri/wri-starter-kit [new-project-name]
-```
-
-If that fails as well, this repo needs to be updated.
-
-If the build:project command fails for some reason, part of the skeleton for the new site might already exist. If it does, delete both the Pantheon environment and the github repo created, if either exist.
-
-There is a lot of information about the build tools, which might help with debugging, in [The Pantheon Build tools README](https://github.com/pantheon-systems/terminus-build-tools-plugin). Pantheon also provides [thorough documentation](https://pantheon.io/docs/guides/build-tools) on the full scope of their build tools.
+1. Start by trying to delete the site: https://github.com/wri/wri-starter-kit#how-to-delete-a-project-made-with-this-starter-kit
+2. If that fails, delete the github repo and the pantheon environment manually.
+3. Fix the problems that caused the site to fail to build
+4. Re-run the `terminus build:project:create`
 
 #### Manual Create:
 If the automated tooling hits a memory exhausted error during the profile install we will need to install / wrap up wiring up the build tools by hand.
