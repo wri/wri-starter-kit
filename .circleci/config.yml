@@ -56,7 +56,7 @@ defaults: &defaults
 
 version: 2
 jobs:
-  configure_env_vars:
+  deploy:
     <<: *defaults
 
     steps:
@@ -72,95 +72,25 @@ jobs:
           name: clone-bash-env
           command: cp $BASH_ENV bash_env.txt
 
-      # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
-      - persist_to_workspace:
-          root: .
-          paths:
-            - bash_env.txt
-
-  static_tests:
-    <<: *defaults
-
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - composer-cache-{{ checksum "composer.lock" }}
-            - composer-cache-
-
-      - run:
-          # Set TERMINUS_ENV and related environment variables.
-          # https://github.com/pantheon-systems/docker-build-tools-ci/blob/6.x/scripts/set-environment
-          name: setup-environment-vars
-          command: ./.ci/build/multidev-save
-
       - run:
           name: run static tests
           command: ./.ci/test/static/run
-
-      - save_cache:
-          key: composer-cache-{{ checksum "composer.lock" }}
-          paths:
-            - $HOME/.composer/cache
-
-  build_php:
-    <<: *defaults
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - composer-cache-{{ checksum "composer.lock" }}
-            - composer-cache-
-            - vendor-{{ checksum "composer.lock" }}
-            - vendor-
-
-      - run:
-          # Set TERMINUS_ENV and related environment variables.
-          # https://github.com/pantheon-systems/docker-build-tools-ci/blob/6.x/scripts/set-environment
-          name: setup-environment-vars
-          command: ./.ci/build/multidev-save
 
       - run:
           name: run PHP build step
           command: ./.ci/build/php
 
-      - save_cache:
-          key: vendor-{{ checksum "composer.lock" }}
-          paths:
-            - $CIRCLE_WORKING_DIRECTORY/vendor
-
-      - persist_to_workspace:
-          root: .
-          paths:
-            - web
-            - vendor
-
-  deploy_to_pantheon:
-    <<: *defaults
-    steps:
-      - checkout
-
-      # Attach the workspace
-      - attach_workspace:
-          at: /tmp
-
-      - run:
-          # Set TERMINUS_ENV and related environment variables.
-          # https://github.com/pantheon-systems/docker-build-tools-ci/blob/6.x/scripts/set-environment
-          name: setup-environment-vars
-          command: ./.ci/build/multidev-save
-
-      # Rsync the build artifact pieces web directory
-      - run:
-          name: sync build artifact
-          command: rsync -lrz /tmp/web /tmp/vendor .
-
       # Deploy to Pantheon
       - run:
           name: deploy to Pantheon
           command: ./.ci/deploy/pantheon/dev-multidev
+          no_output_timeout: 15m
+
+      # Save env variables.
+      - persist_to_workspace:
+          root: .
+          paths:
+            - bash_env.txt
 
   visual_regression_test:
     <<: *defaults
@@ -210,33 +140,15 @@ workflows:
   version: 2
   build_deploy_and_test:
     jobs:
-      - configure_env_vars
-      - static_tests
-      - build_php
-      - deploy_to_pantheon:
+      - deploy:
+          context:
+            - wri-global
+      - visual_regression_test:
           context:
             - wri-global
           requires:
-            - static_tests
-            - build_php
-      - visual_regression_test:
-          requires:
-            - configure_env_vars
-            - deploy_to_pantheon
+            - deploy
           filters:
             branches:
               ignore:
                 - main
-
-  scheduled_update_check:
-    triggers:
-       - schedule:
-           cron: "0 0 * * 4"
-           filters:
-             branches:
-              only:
-                - develop
-    jobs:
-      - composer_lock_updater:
-          context:
-            - wri-global
