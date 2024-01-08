@@ -95,7 +95,7 @@ jobs:
   visual_regression_test:
     <<: *defaults
     docker:
-      - image: backstopjs/backstopjs:4.1.9
+      - image: backstopjs/backstopjs:6.2.2
     steps:
       - checkout
 
@@ -112,6 +112,7 @@ jobs:
       - run:
           name: visual regression test
           command: ./.ci/test/visual-regression/run
+          no_output_timeout: 15m
 
       - store_artifacts:
           path: /tmp/artifacts
