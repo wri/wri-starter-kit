@@ -18,75 +18,55 @@
             }
         },
         {
+            "type": "package",
+            "package": {
+                "name": "drupal/custom_robots",
+                "type": "drupal-module",
+                "version": "dev-8.x-1.x",
+                "source": {
+                    "type": "git",
+                    "url": "https://git.drupalcode.org/project/custom_robots.git",
+                    "reference": "1ce2b87ee2337292d4d9c68add856f661e93e22d"
+                }
+            }
+        },
+        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         },
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "dinbror/blazy",
-                "version": "1.8.2",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "blazy"
-                },
-                "source": {
-                    "type": "git",
-                    "url": "https://github.com/dinbror/blazy",
-                    "reference": "1.8.2"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "ckeditor/templates",
-                "version": "4.15.0",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "ckeditor/plugins/templates"
-                },
-                "dist": {
-                    "url": "https://download.ckeditor.com/templates/releases/templates_4.15.0.zip",
-                    "type": "zip"
-                }
-            }
         }
     ],
     "require": {
         "php": "^8.1",
-        "composer/installers": "^1.9",
-        "cweagans/composer-patches": "^1.0",
         "drupal/config_direct_save": "^2.1",
         "drupal/config_split": "^2.0",
         "drupal/migrate_plus": "^6.0",
         "drupal/migrate_tools": "^6.0",
         "drupal/migrate_upgrade": "^4.0",
         "drupal/term_merge": "^2.0@beta",
-        "drush/drush": "^10.6",
-        "pantheon-systems/drupal-integrations": "^9.0",
-        "pantheon-systems/quicksilver-pushback": "^2",
-        "rvtraveller/qs-composer-installer": "^1.1",
-        "wri/wri_sites": "^9.0",
-        "zaporylie/composer-drupal-optimizations": "^1.0"
+        "drush/drush": "^12.4",
+        "mglaman/composer-drupal-lenient": "^1.0",
+        "pantheon-systems/drupal-integrations": "^10.0",
+        "pantheon-systems/quicksilver-pushback": "^2.1",
+        "rvtraveller/qs-composer-installer": "^1.2",
+        "wri/wri_sites": "^10.0",
+        "zaporylie/composer-drupal-optimizations": "^1.2"
     },
     "require-dev": {
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-        "drupal/coder": "^8.3.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
         "drupal/config_suite": "^2.0",
-        "drupal/devel": "^4.0",
+        "drupal/core-dev": "^10.2",
+        "drupal/devel": "^5.1",
         "drupal/field_tools": "^1.0@alpha",
-        "drupal/stage_file_proxy": "^1.0",
-        "jcalderonzumba/gastonjs": "^1.0.2",
-        "mikey179/vfsstream": "^1.2",
-        "squizlabs/php_codesniffer": "^3.4.0",
-        "symfony/css-selector": "^2.8",
-        "thinkshout/drupal-integrations": "^1.0",
-        "thinkshout/robo-drupal": "^4.0"
+        "drupal/stage_file_proxy": "^2.1",
+        "mglaman/drupal-check": "^1.4",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "phpspec/prophecy-phpunit": "^2.1",
+        "thinkshout/drupal-integrations": "^3.0",
+        "thinkshout/robo-drupal": "dev-drush12-no-behat"
     },
     "conflict": {
             "drupal/drupal": "*"
@@ -96,11 +76,6 @@
     "autoload": {
         "classmap": [
             "scripts/composer/ScriptHandler.php"
-        ]
-    },
-    "autoload-dev": {
-        "files": [
-            "load.environment.php"
         ]
     },
     "scripts": {
@@ -153,7 +128,7 @@
         "enable-patching": true,
         "build-env": {
             "install-cms": [
-                "drush site-install wri_sites --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes && drush en wri_package -y && drush en wri_package2 -y"
+                "drush site-install wri_sites --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes"
             ],
             "export-configuration": "drush config-export --yes"
         },
@@ -179,14 +154,17 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "composer/installers": true,
-            "cweagans/composer-patches": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/core-composer-scaffold": true,
-            "zaporylie/composer-drupal-optimizations": true,
             "drupal/console-extend-plugin": false,
             "oomphinc/composer-installers-extender": true,
-            "rvtraveller/qs-composer-installer": true
+            "mglaman/composer-drupal-lenient": true,
+            "composer/installers": true,
+            "cweagans/composer-patches": true,
+            "zaporylie/composer-drupal-optimizations": true,
+            "rvtraveller/qs-composer-installer": true,
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     }
 }

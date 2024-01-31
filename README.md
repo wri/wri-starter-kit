@@ -37,12 +37,12 @@ You should also have:
 
 After initial install, we recommend doing the following:
 
-1. Enable solr: `terminus solr:enable [your-site-name]` -- or you can do this using the Pantheon Dashboard.
-2. Pull your site from dev -> test -> live so you can start making configuration changes without fear of losing them with new deploys.
+1. Pull your site from dev -> test -> live so you can start making configuration changes without fear of losing them with new deploys.
+2. On live, enable the `wri_package` and `wri_package2` modules.
 3. On live, create a homepage `/node/add/homepage`
 4. On live, create the Site title, etc at `/admin/config/system/site-information` including linking to the homepage you just created.
-5. On live, enable the publishing workflow for all content types at `/admin/config/workflow/workflows/manage/content_publishing`
-6. On live, set up any Languages you'll want to use on the site. The documentation: https://www.drupal.org/docs/multilingual-guide
+5. On live, set up any Languages you'll want to use on the site. The documentation: https://www.drupal.org/docs/multilingual-guide
+6. Export the live configuration back to the codebase using the `config_partial_export` module at `/admin/config/development/configuration/single/config-partial-export`
 
 ### What to do if the build:project command fails:
 1. Start by trying to delete the site: https://github.com/wri/wri-starter-kit#how-to-delete-a-project-made-with-this-starter-kit
