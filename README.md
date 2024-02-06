@@ -32,6 +32,11 @@ You should also have:
    ```
 
 4. You can now visit your github repo at https://github.com/wri/[new-project-name]. That repository will have information on the Pantheon multidev and Circleci configuration in its README.md
+5. Rename the master branch to "main" using https://github.com/wri/[new-project-name]/settings.
+6. There is likely a new branch waiting to be merged that contains the config changes that show up after installing your site. Create a PR for that branch to the `main` branch of your repo.
+7. In the PR, if settings.php is contains lines adding connection to a database, remove those changes and push them: `git checkout main web/sites/default/settings.php`
+8. Also update the permissions of one of the build files and push that up to the PR: `chmod 755 ./.ci/build/multidev-save`
+9. Merge the PR to the "main" branch.
 
 ## Post-install recommended configuration changes:
 
