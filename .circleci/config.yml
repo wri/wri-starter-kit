@@ -53,6 +53,7 @@ defaults: &defaults
     # BUILD_TOOLS_VERSION: ^2.0.0-alpha4
     TERM: dumb
     DEFAULT_BRANCH: main
+    TERMINUS_BUILD_TOOLS_WORKFLOW_TIMEOUT: 360
 
 version: 2
 jobs:
@@ -77,8 +78,10 @@ jobs:
           command: ./.ci/test/static/run
 
       - run:
-          name: run PHP build step
-          command: ./.ci/build/php
+          name: run theme build step
+          command: |
+            npm install -g n && n 16
+            composer compile-code
 
       # Deploy to Pantheon
       - run:
@@ -112,7 +115,6 @@ jobs:
       - run:
           name: visual regression test
           command: ./.ci/test/visual-regression/run
-          no_output_timeout: 15m
 
       - store_artifacts:
           path: /tmp/artifacts

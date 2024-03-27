@@ -18,19 +18,6 @@
             }
         },
         {
-            "type": "package",
-            "package": {
-                "name": "drupal/custom_robots",
-                "type": "drupal-module",
-                "version": "dev-8.x-1.x",
-                "source": {
-                    "type": "git",
-                    "url": "https://git.drupalcode.org/project/custom_robots.git",
-                    "reference": "1ce2b87ee2337292d4d9c68add856f661e93e22d"
-                }
-            }
-        },
-        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         },
@@ -66,58 +53,49 @@
         "phpcompatibility/php-compatibility": "^9.3",
         "phpspec/prophecy-phpunit": "^2.1",
         "thinkshout/drupal-integrations": "^3.0",
-        "thinkshout/robo-drupal": "dev-drush12-no-behat"
+        "thinkshout/robo-drupal": "^4.0"
     },
     "conflict": {
-            "drupal/drupal": "*"
+        "drupal/drupal": "*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "autoload": {
-        "classmap": [
-            "scripts/composer/ScriptHandler.php"
-        ]
-    },
-    "scripts": {
-        "build-assets": [
-            "@prepare-for-pantheon",
-            "composer install --optimize-autoloader --no-dev"
-        ],
-        "lint": "find web/modules/custom web/themes/custom -name '*.php' -exec php -l {} \\;",
-        "code-sniff": [
-            "./vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info,txt --ignore=node_modules,bower_components,vendor ./web/modules/custom",
-            "./vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info,txt --ignore=node_modules,bower_components,vendor ./web/themes/custom",
-            "./vendor/bin/phpcs --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme,css,info,txt --ignore=node_modules,bower_components,vendor ./web/modules/custom",
-            "./vendor/bin/phpcs --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme,css,info,txt --ignore=node_modules,bower_components,vendor ./web/themes/custom"
-        ],
-        "code-sniff-fix": [
-            "./vendor/bin/phpcbf --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info,txt --ignore=node_modules,bower_components,vendor ./web/modules/custom",
-            "./vendor/bin/phpcbf --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info,txt --ignore=node_modules,bower_components,vendor ./web/themes/custom",
-            "./vendor/bin/phpcbf --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme,css,info,txt --ignore=node_modules,bower_components,vendor ./web/modules/custom",
-            "./vendor/bin/phpcbf --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme,css,info,txt --ignore=node_modules,bower_components,vendor ./web/themes/custom"
-        ],
-        "unit-test": "echo 'No unit test step defined.'",
-        "prepare-for-pantheon": "DrupalProject\\composer\\ScriptHandler::prepareForPantheon",
-        "post-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "@compile-code"
-        ],
-        "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "@compile-code"
-        ],
-        "post-create-project-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
-        ],
-        "compile-code": [
-            ": $(npm install --prefix web/profiles/contrib/wri_sites/themes/custom/ts_wrin)",
-            ": $(npm run build --prefix web/profiles/contrib/wri_sites/themes/custom/ts_wrin)"
-        ]
-    },
     "extra": {
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "./web"
+            },
+            "allowed-packages": [
+                "pantheon-systems/drupal-integrations",
+                "thinkshout/robo-drupal",
+                "thinkshout/drupal-integrations"
+            ],
+            "file-mapping": {
+                "[project-root]/.editorconfig": false,
+                "[project-root]/.ci/build/multidev-save": false
+            }
+        },
+        "patches": {
+            "drupal-lenient": {
+                "allowed-list": ["drupal/custom_robots"]
+            },
+            "drupal/core": {
+                "Length of menu_tree.url and menu_tree.route_param_key are too short https://www.drupal.org/project/drupal/issues/3106205": "https://www.drupal.org/files/issues/2024-01-02/3106205-length-menu-tree-too-short-48.patch"
+            },
+            "drupal/facets": {
+                "facets-facets_with_ajax_not_working_in_most_of_situations  https://www.drupal.org/project/facets/issues/3052574": "https://www.drupal.org/files/issues/2023-02-07/facets-with-ajax-not-working-in-most-of-situations-3052574-174.patch",
+                "Ajax Facet Summary Reset Facet Link is not working https://www.drupal.org/project/facets/issues/3260420": "https://www.drupal.org/files/issues/2022-02-01/facets-ajax-settings.patch",
+                "ViewsDisplayBase::isRenderedInCurrentRequest() doesn't let the facet link to reset to original URL https://www.drupal.org/project/facets/issues/3259123#comment-14377446": "https://www.drupal.org/files/issues/2022-01-18/3259123-search-facet-reset-link.patch",
+                "Widget: Radio inputs https://www.drupal.org/project/facets/issues/2815211": "https://www.drupal.org/files/issues/2023-01-21/facets-radio_widget-2815211-27.patch"
+            }
+        },
         "installer-paths": {
             "web/core": ["type:drupal-core"],
-            "web/libraries/{$name}": ["type:drupal-library", "type:library", "type:npm-asset"],
+            "web/libraries/{$name}": [
+                "type:drupal-library",
+                "type:library",
+                "type:npm-asset"
+            ],
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
@@ -126,28 +104,35 @@
         },
         "installer-types": ["npm-asset"],
         "enable-patching": true,
-        "build-env": {
-            "install-cms": [
-                "drush site-install wri_sites --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes"
-            ],
-            "export-configuration": "drush config-export --yes"
-        },
-        "drupal-scaffold": {
-            "allowed-packages": [
-                "pantheon-systems/drupal-integrations",
-                "thinkshout/drupal-integrations",
-                "thinkshout/robo-drupal"
-            ],
-            "locations": {
-                "web-root": "./web"
-            },
-            "file-mapping": {
-                "[project-root]/.editorconfig": false
-            }
-        },
         "patchLevel": {
-            "drupal\/core": "-p2"
+            "drupal/core": "-p2"
         }
+    },
+    "autoload": {
+        "classmap": ["upstream-configuration/scripts/ComposerScripts.php"]
+    },
+    "scripts": {
+        "code-sniff": [
+            "./vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,info,txt --ignore=node_modules,bower_components,vendor ./web/modules/custom",
+            "./vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,info,txt --ignore=node_modules,bower_components,vendor ./web/themes/custom",
+            "./vendor/bin/phpcs --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme,info,txt --ignore=node_modules,bower_components,vendor ./web/modules/custom",
+            "./vendor/bin/phpcs --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme,info,txt --ignore=node_modules,bower_components,vendor ./web/themes/custom"
+        ],
+        "code-sniff-fix": [
+            "./vendor/bin/phpcbf --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,info,txt --ignore=node_modules,bower_components,vendor ./web/modules/custom",
+            "./vendor/bin/phpcbf --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,info,txt --ignore=node_modules,bower_components,vendor ./web/themes/custom",
+            "./vendor/bin/phpcbf --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme,info,txt --ignore=node_modules,bower_components,vendor ./web/modules/custom",
+            "./vendor/bin/phpcbf --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme,info,txt --ignore=node_modules,bower_components,vendor ./web/themes/custom"
+        ],
+        "unit-test": "echo 'No unit test step defined.'",
+        "compile-code": [
+            ": $(npm install --prefix web/profiles/contrib/wri_sites/themes/custom/ts_wrin)",
+            ": $(npm run build --prefix web/profiles/contrib/wri_sites/themes/custom/ts_wrin)",
+            "rm -fr web/libraries/ts_wrin",
+            "cp -r web/profiles/contrib/wri_sites/themes/custom/ts_wrin/dist web/libraries/ts_wrin"
+        ],
+        "pre-update-cmd": ["DrupalComposerManaged\\ComposerScripts::preUpdate"],
+        "post-update-cmd": ["DrupalComposerManaged\\ComposerScripts::postUpdate"]
     },
     "config": {
         "optimize-autoloader": true,
@@ -165,6 +150,9 @@
             "php-http/discovery": true,
             "phpstan/extension-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "platform": {
+            "php": "8.1.13"
         }
     }
 }

@@ -1,12 +1,13 @@
 api_version: 1
-drush_version: 10
-database:
-  version: 10.4
 web_docroot: true
 php_version: 8.1
-enforce_https: transitional
+database:
+  version: 10.4
+drush_version: 10
 search:
   version: 8
+enforce_https: transitional
+build_step: true
 workflows:
   sync_code:
     after:

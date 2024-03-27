@@ -1,0 +1,6 @@
+# As part of the deploy to Pantheon, we copy the ts_wrin theme's built
+# dist files into the libraries folder, then run:
+# cp web/libraries/.pantheon.gitignore web/libraries/.gitignore
+# during deployment to telling Pantheon we want to commit the
+# libraries/ts_wrin folder to its repo, but not our github one.
+!ts_wrin
