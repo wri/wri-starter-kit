@@ -7,7 +7,6 @@
 
 # Packages we don't want commited to github but do want committed on Pantheon.
 /web/profiles/contrib/wri_sites/themes/custom/ts_wrin/dist/*
-/web/modules/custom/wri_paying_for_paris/node_modules/gsap/*
 
 
 # :::::::::::::::::::::: cut ::::::::::::::::::::::
@@ -86,8 +85,6 @@
 /web/libraries/*
 !/web/libraries/.pantheon.gitignore
 /web/profiles/contrib/
-/web/modules/custom/wri_paying_for_paris/node_modules/*
-!/web/modules/custom/wri_paying_for_paris/node_modules/gsap
 /web/private/scripts/quicksilver
 web/.csslintrc
 web/.eslintignore
