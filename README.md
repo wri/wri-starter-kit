@@ -44,10 +44,11 @@ After initial install, we recommend doing the following:
 
 1. Pull your site from dev -> test -> live so you can start making configuration changes without fear of losing them with new deploys.
 2. On live, enable the `wri_package` and `wri_package2` modules.
-3. On live, create a homepage `/node/add/homepage`
-4. On live, create the Site title, etc at `/admin/config/system/site-information` including linking to the homepage you just created.
-5. On live, set up any Languages you'll want to use on the site. The documentation: https://www.drupal.org/docs/multilingual-guide
-6. Export the live configuration back to the codebase using the `config_partial_export` module at `/admin/config/development/configuration/single/config-partial-export`
+3. On live, change the user 1 username to something other than "admin" and give it a stronger password.
+4. On live, create a homepage `/node/add/homepage`
+5. On live, create the Site title, etc at `/admin/config/system/site-information` including linking to the homepage you just created.
+6. On live, set up any Languages you'll want to use on the site. The documentation: https://www.drupal.org/docs/multilingual-guide
+7. Export the live configuration back to the codebase using the `config_partial_export` module at `/admin/config/development/configuration/single/config-partial-export`
 
 ### What to do if the build:project command fails:
 1. Start by trying to delete the site: https://github.com/wri/wri-starter-kit#how-to-delete-a-project-made-with-this-starter-kit
