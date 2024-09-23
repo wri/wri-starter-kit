@@ -81,12 +81,6 @@
             },
             "drupal/core": {
                 "Length of menu_tree.url and menu_tree.route_param_key are too short https://www.drupal.org/project/drupal/issues/3106205": "https://www.drupal.org/files/issues/2024-01-02/3106205-length-menu-tree-too-short-48.patch"
-            },
-            "drupal/facets": {
-                "facets-facets_with_ajax_not_working_in_most_of_situations  https://www.drupal.org/project/facets/issues/3052574": "https://www.drupal.org/files/issues/2023-02-07/facets-with-ajax-not-working-in-most-of-situations-3052574-174.patch",
-                "Ajax Facet Summary Reset Facet Link is not working https://www.drupal.org/project/facets/issues/3260420": "https://www.drupal.org/files/issues/2022-02-01/facets-ajax-settings.patch",
-                "ViewsDisplayBase::isRenderedInCurrentRequest() doesn't let the facet link to reset to original URL https://www.drupal.org/project/facets/issues/3259123#comment-14377446": "https://www.drupal.org/files/issues/2022-01-18/3259123-search-facet-reset-link.patch",
-                "Widget: Radio inputs https://www.drupal.org/project/facets/issues/2815211": "https://www.drupal.org/files/issues/2023-01-21/facets-radio_widget-2815211-27.patch"
             }
         },
         "installer-paths": {
