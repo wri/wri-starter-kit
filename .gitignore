@@ -172,3 +172,7 @@ Thumbs.db
 # Parcel #
 ##########
 .parcel-cache
+
+node_modules
+.next
+.ci/test/visual-regression/backstop_data

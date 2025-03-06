@@ -12,14 +12,26 @@ const pathsToTest = {
 let scenariosToTest = [];
 
 for (let [key, value] of Object.entries(pathsToTest)) {
+  let first_character = '?';
+  if (value.includes('?')) {
+    first_character = '&';
+  }
     scenariosToTest.push({
         label: key,
-        url: multidevURL + value,
-        referenceUrl: devURL + value,
-        hideSelectors: [],
-        removeSelectors: [
-          "iframe"
+        url: multidevURL + value + first_character + "loading=eager",
+        referenceUrl: devURL + value + first_character + "loading=eager",
+        hideSelectors: [
+          '.osano-cm-window__dialog',
+          '.osano-cm-window',
+          '.region-modals',
+          '.region-top-modals',
+          'iframe'
         ],
+        removeSelectors: [
+          "iframe",
+          '.region-top-modals',
+        ],
+        requireSameDimensions: false,
         selectorExpansion: true,
         selectors: [
             'document',

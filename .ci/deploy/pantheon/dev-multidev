@@ -44,7 +44,6 @@ terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- cr
 INDEXED_VALUE=$(terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- sapi-s --field=Indexed)
 
 if [[ "$INDEXED_VALUE" == "0" ]] ; then
-  terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- sapi-sc pantheon
   terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- sapi-i
 fi
 

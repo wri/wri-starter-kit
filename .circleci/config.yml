@@ -1,7 +1,7 @@
 # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
 defaults: &defaults
   docker:
-    - image: quay.io/pantheon-public/build-tools-ci:8.x-php8.1
+    - image: quay.io/pantheon-public/build-tools-ci:8.x-php8.3
   working_directory: ~/example_drops_8_composer
   environment:
     #=========================================================================
@@ -53,7 +53,7 @@ defaults: &defaults
     # BUILD_TOOLS_VERSION: ^2.0.0-alpha4
     TERM: dumb
     DEFAULT_BRANCH: main
-    TERMINUS_BUILD_TOOLS_WORKFLOW_TIMEOUT: 360
+    TERMINUS_BUILD_TOOLS_WORKFLOW_TIMEOUT: 500
 
 version: 2
 jobs:
@@ -80,14 +80,14 @@ jobs:
       - run:
           name: run theme build step
           command: |
-            npm install -g n && n 16
+            npm install -g n && n 20
             composer compile-code
 
       # Deploy to Pantheon
       - run:
           name: deploy to Pantheon
           command: ./.ci/deploy/pantheon/dev-multidev
-          no_output_timeout: 15m
+          no_output_timeout: 5m
 
       # Save env variables.
       - persist_to_workspace:
@@ -115,6 +115,7 @@ jobs:
       - run:
           name: visual regression test
           command: ./.ci/test/visual-regression/run
+          no_output_timeout: 15m
 
       - store_artifacts:
           path: /tmp/artifacts

@@ -27,7 +27,7 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.3",
         "drupal/config_direct_save": "^2.1",
         "drupal/config_split": "^2.0",
         "drupal/migrate_plus": "^6.0",
@@ -39,7 +39,7 @@
         "pantheon-systems/drupal-integrations": "^10.0",
         "pantheon-systems/quicksilver-pushback": "^2.1",
         "rvtraveller/qs-composer-installer": "^1.2",
-        "wri/wri_sites": "^10.0",
+        "wri/wri_sites": "^10.2",
         "zaporylie/composer-drupal-optimizations": "^1.2"
     },
     "require-dev": {
@@ -133,20 +133,21 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "drupal/core-composer-scaffold": true,
-            "drupal/console-extend-plugin": false,
-            "oomphinc/composer-installers-extender": true,
-            "mglaman/composer-drupal-lenient": true,
             "composer/installers": true,
             "cweagans/composer-patches": true,
-            "zaporylie/composer-drupal-optimizations": true,
-            "rvtraveller/qs-composer-installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "drupal/console-extend-plugin": false,
+            "drupal/core-composer-scaffold": true,
+            "mglaman/composer-drupal-lenient": true,
+            "oomphinc/composer-installers-extender": true,
             "php-http/discovery": true,
             "phpstan/extension-installer": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "rvtraveller/qs-composer-installer": true,
+            "tbachert/spi": true,
+            "zaporylie/composer-drupal-optimizations": true
         },
         "platform": {
-            "php": "8.1.13"
+            "php": "8.3.15"
         }
     }
 }
