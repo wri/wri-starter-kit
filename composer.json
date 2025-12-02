@@ -26,7 +26,7 @@
         "pantheon-systems/drupal-integrations": "^10.0",
         "pantheon-systems/quicksilver-pushback": "^2.1",
         "rvtraveller/qs-composer-installer": "^1.2",
-        "wri/wri_sites": "^10.2",
+        "wri/wri_sites": "dev-views_arg_order_sort",
         "zaporylie/composer-drupal-optimizations": "^1.2"
     },
     "require-dev": {
