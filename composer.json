@@ -116,6 +116,11 @@
         "post-update-cmd": ["DrupalComposerManaged\\ComposerScripts::postUpdate"]
     },
     "config": {
+        "audit": {
+            "ignore": {
+                "PKSA-dwsq-ppd2-mb1x": "Updating to 10.6.9+ should solve."
+            }
+        },
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
