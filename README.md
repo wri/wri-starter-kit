@@ -11,6 +11,8 @@ Note that includes each of the following:
 - terminus version 3+
 - An SSH key on Pantheon's Dashboard (so you can run terminus commands without having to provide a password)
 - The terminus build tools plugin
+- The composer-drupal-lenient plugin installed globally, so it's active when a new project first resolves its dependencies (some modules in the profile have no Drupal 11 release yet):
+  `composer global config allow-plugins.mglaman/composer-drupal-lenient true && composer global require mglaman/composer-drupal-lenient`
 
 You should also have:
 - The ability to create a new repository on Github under the WRI org: https://github.com/organizations/wri/repositories/new
