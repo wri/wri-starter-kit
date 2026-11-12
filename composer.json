@@ -15,27 +15,26 @@
     ],
     "require": {
         "php": "^8.3",
-        "drupal/config_direct_save": "^2.1",
         "drupal/config_split": "^2.0",
         "drupal/migrate_plus": "^6.0",
         "drupal/migrate_tools": "^6.0",
         "drupal/migrate_upgrade": "^4.0",
         "drupal/term_merge": "^2.0@beta",
-        "drush/drush": "^12.4",
+        "drush/drush": "^13",
         "mglaman/composer-drupal-lenient": "^1.0",
-        "pantheon-systems/drupal-integrations": "^10.0",
+        "pantheon-systems/drupal-integrations": "^11.1",
         "pantheon-systems/quicksilver-pushback": "^2.1",
         "rvtraveller/qs-composer-installer": "^1.2",
-        "wri/wri_sites": "^10.2",
+        "wri/wri_sites": "^11.0",
         "zaporylie/composer-drupal-optimizations": "^1.2"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "drupal/coder": "^8.3",
         "drupal/config_suite": "^2.0",
-        "drupal/core-dev": "^10.2",
         "drupal/devel": "^5.1",
         "drupal/field_tools": "^1.0@alpha",
-        "drupal/stage_file_proxy": "^2.1",
+        "drupal/stage_file_proxy": "^3.1",
         "mglaman/drupal-check": "^1.4",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpspec/prophecy-phpunit": "^2.1",
@@ -62,13 +61,13 @@
                 "[project-root]/.ci/build/multidev-save": false
             }
         },
-        "patches": {
-            "drupal-lenient": {
-                "allowed-list": ["drupal/custom_robots"]
-            },
-            "drupal/core": {
-                "Length of menu_tree.url and menu_tree.route_param_key are too short https://www.drupal.org/project/drupal/issues/3106205": "https://www.drupal.org/files/issues/2024-01-02/3106205-length-menu-tree-too-short-48.patch"
-            }
+        "drupal-lenient": {
+            "allowed-list": [
+                "drupal/dblog_persistent",
+                "drupal/entity_share_cron",
+                "drupal/twitter_api_block",
+                "drupal/views_extras"
+            ]
         },
         "installer-paths": {
             "web/core": ["type:drupal-core"],
@@ -116,11 +115,6 @@
         "post-update-cmd": ["DrupalComposerManaged\\ComposerScripts::postUpdate"]
     },
     "config": {
-        "audit": {
-            "ignore": {
-                "PKSA-dwsq-ppd2-mb1x": "Updating to 10.6.9+ should solve."
-            }
-        },
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
@@ -135,6 +129,7 @@
             "php-http/discovery": true,
             "phpstan/extension-installer": true,
             "rvtraveller/qs-composer-installer": true,
+            "symfony/runtime": true,
             "tbachert/spi": true,
             "zaporylie/composer-drupal-optimizations": true
         },
